@@ -1,8 +1,8 @@
 FROM node:18-alpine as base
 RUN npm install -g pnpm
 WORKDIR /app
-COPY app/package.json .
-COPY app/pnpm-lock.yaml .
+COPY package.json .
+COPY pnpm-lock.yaml .
 
 FROM base as DEVELOPMENT
 RUN pnpm install --frozen-lockfile
