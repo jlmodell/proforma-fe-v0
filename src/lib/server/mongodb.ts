@@ -18,8 +18,6 @@ if (privateEnv.ATLAS_MONGODB) {
 //   uri = process.env.ATLAS_MONGODB as string;
 // }
 
-console.log("uri: ", uri);
-
 if (!uri) throw new Error("Missing environment variable ATLAS_MONGODB");
 
 let client: MongoClient;
