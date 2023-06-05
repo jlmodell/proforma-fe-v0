@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { page } from "$app/stores";
   import type { Customer } from "../../../app";
   import { onMount } from "svelte";
 
@@ -189,13 +190,42 @@
     if (data) {
       customers = data;
     }
+
+    const proformaResponse = await fetch("/api/proforma/" + $page.params.id);
+    const proformaData = await proformaResponse.json();
+    if (proformaData) {
+      _id = proformaData._id;
+
+      date = proformaData.date;
+      cust_nbr = proformaData.cust_nbr;
+
+      let customerResponse = await fetch(
+        "/api/customers/" + proformaData.cust_nbr
+      );
+      let customerData = (await customerResponse.json()) as Customer;
+      customer = customerData;
+
+      comments = proformaData.comments;
+      payment_terms = proformaData.payment_terms;
+      customer_po = proformaData.customer_po;
+
+      fees = {
+        merch_total: proformaData.merch_total,
+        shipping_chgs: proformaData.shipping_chgs,
+        drop_ship_fee: proformaData.drop_ship_fee,
+        same_day_fee: proformaData.same_day_fee,
+        misc: proformaData.misc,
+      };
+
+      total_amount_due = proformaData.total_amount_due;
+    }
   });
 </script>
 
-<main class="w-full">
+<section class="w-[90vw]">
   <div class="flex flex-col mt-2">
     <img
-      src="/src/lib/busse-logo-2x-300x113.png"
+      src="/images/busse-logo-2x-300x113.png"
       alt="busse logo"
       class="w-[300px]"
     />
@@ -206,11 +236,11 @@
     </div>
   </div>
 
-  <div class="w-full grid place-items-center">
+  <div class="w-screen grid place-items-center">
     <h1 class="text-3xl font-semibold underline">Proforma Notice</h1>
   </div>
 
-  <div class="w-full flex justify-end items-center px-2">
+  <div class="w-screen flex justify-end items-center pr-10">
     <label for="date" class="mr-2"> Date: </label>
     <input
       type="date"
@@ -389,44 +419,45 @@
       class="w-1/2 border focus:border-gray-400 outline-none ring-0 border-white rounded-md p-1"
     />
   </div>
+</section>
 
-  <div class="print:hidden absolute bottom-5 left-5 w-1/2">
-    <button
-      class="w-1/2 p-2 mt-4 bg-emerald-500 text-white rounded-md"
-      on:click={saveAndPrint}
-    >
-      Save & Print
-    </button>
-    <button
-      class="w-1/2 p-2 mt-4 bg-blue-500 text-white rounded-md"
-      on:click={save}
-    >
-      Save
-    </button>
-    <button
-      class="w-1/2 p-2 mt-4 bg-red-500 text-white rounded-md"
-      on:click={reset}
-    >
-      Reset
-    </button>
-  </div>
+<div class="print:hidden absolute bottom-5 left-5 w-1/2">
+  <button
+    class="w-1/2 p-2 mt-4 bg-emerald-500 text-white rounded-md"
+    on:click={saveAndPrint}
+  >
+    Save & Print
+  </button>
+  <button
+    class="w-1/2 p-2 mt-4 bg-blue-500 text-white rounded-md"
+    on:click={save}
+  >
+    Save
+  </button>
+</div>
 
-  <details class="absolute bottom-0 right-0 print:hidden" open>
-    <summary>DEBUG:</summary>
-    <pre class="print:hidden">{JSON.stringify(
-        {
-          //   filteredCustomers,
-          date,
-          ...customer,
-          _id,
-          payment_terms,
-          customer_po,
-          ...fees,
-          total_amount_due,
-          comments,
-        },
-        null,
-        2
-      )}</pre>
-  </details>
-</main>
+<details class="pre-wrapper absolute bottom-0 right-0 pr-5 pb-2 print:hidden">
+  <summary class="italic lowercase">DEBUG</summary>
+  <pre class="print:hidden whitespace-pre-line">{JSON.stringify(
+      {
+        //   filteredCustomers,
+        date,
+        cust_nbr,
+        ...customer,
+        _id,
+        payment_terms,
+        customer_po,
+        ...fees,
+        total_amount_due,
+        comments,
+      },
+      null,
+      2
+    )}</pre>
+</details>
+
+<style>
+  .pre-wrapper {
+    max-width: calc(100vw / 4);
+  }
+</style>

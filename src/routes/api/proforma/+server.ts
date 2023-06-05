@@ -19,6 +19,7 @@ export async function POST({ request }) {
 
   const {
     date,
+    cust_nbr,
     name,
     address,
     city_state_zip,
@@ -36,6 +37,7 @@ export async function POST({ request }) {
 
   const proforma = {
     date,
+    cust_nbr,
     name,
     address,
     city_state_zip,

@@ -2,7 +2,7 @@
   import "../app.css";
 </script>
 
-<main>
+<div>
   <nav class="absolute top-2 right-2 print:hidden text-right">
     <ul>
       <li>
@@ -29,4 +29,4 @@
     </ul>
   </nav>
   <slot />
-</main>
+</div>

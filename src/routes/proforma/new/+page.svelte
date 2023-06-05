@@ -192,10 +192,10 @@
   });
 </script>
 
-<section class="w-full">
+<section class="w-[90vw]">
   <div class="flex flex-col mt-2">
     <img
-      src="/src/lib/busse-logo-2x-300x113.png"
+      src="/images/busse-logo-2x-300x113.png"
       alt="busse logo"
       class="w-[300px]"
     />
@@ -410,23 +410,30 @@
       Reset
     </button>
   </div>
-
-  <details class="absolute bottom-0 right-0 print:hidden" open>
-    <summary>DEBUG:</summary>
-    <pre class="print:hidden">{JSON.stringify(
-        {
-          //   filteredCustomers,
-          date,
-          ...customer,
-          _id,
-          payment_terms,
-          customer_po,
-          ...fees,
-          total_amount_due,
-          comments,
-        },
-        null,
-        2
-      )}</pre>
-  </details>
 </section>
+
+<details class="pre-wrapper absolute bottom-0 right-0 pr-5 pb-2 print:hidden">
+  <summary class="italic lowercase">DEBUG</summary>
+  <pre class="print:hidden whitespace-pre-line">{JSON.stringify(
+      {
+        //   filteredCustomers,
+        date,
+        cust_nbr,
+        ...customer,
+        _id,
+        payment_terms,
+        customer_po,
+        ...fees,
+        total_amount_due,
+        comments,
+      },
+      null,
+      2
+    )}</pre>
+</details>
+
+<style>
+  .pre-wrapper {
+    max-width: calc(100vw / 4);
+  }
+</style>
