@@ -1,21 +1,22 @@
-FROM node:18-alpine
-
-
-
+FROM node:18-alpine as base
 RUN npm install -g pnpm
-
 WORKDIR /app
-COPY package.json pnpm-lock.yaml ./
+COPY app/package.json .
+COPY app/pnpm-lock.yaml .
+
+FROM base as DEVELOPMENT
 RUN pnpm install --frozen-lockfile
+ENTRYPOINT [ "pnpm", "dev" ]
 
-COPY . .
-
+FROM base as PRODUCTION
+COPY app/ ./
+RUN pnpm install --frozen-lockfile
 RUN pnpm check
 RUN pnpm build
-
 EXPOSE 3000
 ENV NODE_ENV=production
-CMD ["node", "-r", "dotenv/config", "build"]
+ENTRYPOINT [ "pnpm", "serve" ]
+# CMD ["node", "-r", "dotenv/config", "build"]
 
 # FROM node:18-alpine AS builder
 # WORKDIR /app
