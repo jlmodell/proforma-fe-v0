@@ -10,10 +10,6 @@ RUN pnpm install --frozen-lockfile
 
 COPY . .
 
-ENV ATLAS_MONGODB=${ATLAS_MONGODB}
-
-RUN echo ${ATLAS_MONGODB}
-
 RUN pnpm check
 RUN pnpm build
 
