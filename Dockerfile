@@ -15,6 +15,7 @@ RUN pnpm check
 RUN pnpm build
 EXPOSE 3000
 ENV NODE_ENV=production
+ENV ATLAS_MONGODB="$ATLAS_MONGODB"
 ENTRYPOINT [ "pnpm", "serve" ]
 # CMD ["node", "-r", "dotenv/config", "build"]
 
