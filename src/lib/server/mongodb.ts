@@ -1,12 +1,12 @@
 import { MongoClient } from "mongodb";
-import { ATLAS_MONGODB } from "$env/static/private";
+import { env } from "$env/dynamic/private";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-console.log("env__ATLAS_MONGODB", ATLAS_MONGODB);
+console.log("env__ATLAS_MONGODB", env.ATLAS_MONGODB);
 
-let uri = process.env.ATLAS_MONGODB;
+let uri = env.ATLAS_MONGODB;
 // let uri = ATLAS_MONGODB;
 // if (!uri) {
 //   uri = process.env.ATLAS_MONGODB as string;

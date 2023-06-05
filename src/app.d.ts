@@ -9,9 +9,9 @@ declare global {
   }
 }
 
-declare module "$env/static/private" {
-  export const ATLAS_MONGODB: string;
-}
+// declare module "$env/static/private" {
+//   export const ATLAS_MONGODB: string;
+// }
 
 export {};
 
