@@ -9,7 +9,7 @@ RUN pnpm install --frozen-lockfile
 ENTRYPOINT [ "pnpm", "dev" ]
 
 FROM base as PRODUCTION
-COPY app/ ./
+COPY ./ ./
 RUN pnpm install --frozen-lockfile
 RUN pnpm check
 RUN pnpm build
