@@ -6,5 +6,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=production
+      - ATLAS_MONGODB=${ATLAS_MONGODB}
     ports:
       - 3000:3000
