@@ -15,7 +15,7 @@ RUN pnpm build
 
 EXPOSE 3000
 ENV NODE_ENV=production
-CMD ["node", "build"]
+CMD ["node", "-r", "dotenv/config", "build"]
 
 # FROM node:18-alpine AS builder
 # WORKDIR /app
