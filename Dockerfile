@@ -1,5 +1,7 @@
 FROM node:18-alpine
 
+ENV ATLAS_MONGODB=${ATLAS_MONGODB}
+
 RUN npm install -g pnpm
 
 WORKDIR /app
@@ -7,6 +9,7 @@ COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
 COPY . .
+RUN pnpm check
 RUN pnpm build
 
 EXPOSE 3000
