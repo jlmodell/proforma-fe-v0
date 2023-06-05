@@ -9,6 +9,10 @@ declare global {
   }
 }
 
+declare module "$env/static/private" {
+  export const ATLAS_MONGODB: string;
+}
+
 export {};
 
 export interface Proforma {

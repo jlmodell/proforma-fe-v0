@@ -1,10 +1,11 @@
 import { MongoClient } from "mongodb";
-// import { ATLAS_MONGODB } from "$env/static/private";
-import dotenv from "dotenv";
+import { ATLAS_MONGODB } from "$env/static/private";
+// import dotenv from "dotenv";
 
-dotenv.config();
+// dotenv.config();
 
-let uri = process.env.ATLAS_MONGODB;
+// let uri = process.env.ATLAS_MONGODB;
+let uri = ATLAS_MONGODB;
 if (!uri) throw new Error("Missing environment variable ATLAS_MONGODB");
 
 let client: MongoClient;
